@@ -101,7 +101,7 @@ const Profile = () => {
                 {rIsLoading ? (
                   "loading"
                 ) : userId === currentUser.id ? (
-                  <button onClick={() => setOpenUpdate(true)}>update</button>
+                  <button onClick={() =>setOpenUpdate(true)}>update</button>
                 ) : (
                   <button onClick={handleFollow}>
                     {relationshipData.includes(currentUser.id)
