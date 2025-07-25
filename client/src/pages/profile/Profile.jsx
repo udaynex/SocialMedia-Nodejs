@@ -110,7 +110,7 @@ const Profile = () => {
                   </button>
                 )}
               </div>
-              <div className="right">
+              <div className="right" >
                 <EmailOutlinedIcon />
                 <MoreVertIcon />
               </div>
