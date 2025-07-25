@@ -1,0 +1,49 @@
+name: PR Review Automation
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  pr-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install ESLint
+        run: npm install eslint --save-dev
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub crewai langchain-google-genai python-dotenv inquirer
+
+      - name: Run PR Review Script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          REPO_NAME: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GEMINI_MODEL: gemini-1.5-flash
+          GITHUB_ACTIONS: true
+        run: python Automate_PR.py
+
+      - name: Check for errors
+        if: failure()
+        run: |
+          echo "PR review process failed. Check the GitHub Actions logs for details."
+          exit 1
