@@ -13,7 +13,9 @@
   "name": "api",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^9.32.0"
+  },
   "scripts": {
     "start": "nodemon index.js"
   },

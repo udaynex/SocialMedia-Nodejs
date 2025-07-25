@@ -7,6 +7,11 @@ on:
 jobs:
   pr-review:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
 
     steps:
       - name: Checkout repository
@@ -19,7 +24,9 @@ jobs:
           cache: 'npm'
 
       - name: Install ESLint
-        run: npm install eslint --save-dev
+        run: |
+          npm init -y
+          npm install eslint --save-dev
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,7 +37,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install PyGithub crewai langchain-google-genai python-dotenv inquirer
+          pip install PyGithub crewai langchain-google-genai python-dotenv
 
       - name: Run PR Review Script
         env:
