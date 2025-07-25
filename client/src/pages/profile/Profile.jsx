@@ -95,7 +95,7 @@ const Profile = () => {
                   </div>
                   <div className="item">
                     <LanguageIcon />
-                    <span>{data.website}</span>
+                    <span>{data.website }</span>
                   </div>
                 </div>
                 {rIsLoading ? (
